@@ -1,8 +1,10 @@
-# cmsc436-final
-Final Project for cmsc436
+# CMSC436 Semester Project
 
-Group Number: 35
-Team Members: Eleftherios, Federico, Emmanuel
-Project Name: Student Expense Tracker System
+Student Expense Tracker System
+
+Group 35:
+Eleftherios Sotiriou
+Federico Sandi
+Emmanuel Benyam
 
 edit made by Federico
