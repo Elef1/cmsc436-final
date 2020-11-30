@@ -30,13 +30,13 @@ class HistoryListAdapter(context: Context, listTransactions: ArrayList<Transacti
         val layoutInflater = LayoutInflater.from(mContext)
         val rowView = layoutInflater.inflate(R.layout.adapter_view_layout, parent, false)
 
-        //sets up the name
+        //sets up the name(transaction)
         val nameOfTransaction = rowView.findViewById<TextView>(R.id.textView1)
         nameOfTransaction.text = list[position].transaction
         //sets up the amount
         val amountOfTransaction = rowView.findViewById<TextView>(R.id.textView2)
         amountOfTransaction.text = list[position].amount
-
+        //returns how each rows view will be
         return rowView
     }
 

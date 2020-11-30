@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
+import androidx.annotation.TransitionRes
 import androidx.appcompat.app.AppCompatActivity
 import java.io.*
 import java.text.ParseException
@@ -30,7 +31,7 @@ class MainScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
 
-        //Gets budget from previous activity
+        //Gets budget from previous activity stored in the intent
         val budget = findViewById<TextView>(R.id.yourBdgt)
         budget.text = intent.getStringExtra(Amount).toString()
         var mListView = findViewById<ListView>(R.id.listView)
@@ -97,33 +98,31 @@ class MainScreen : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Load saved ToDoItems, if necessary
         if (mAdapter.count == 0)
             loadItems()
     }
 
     override fun onPause() {
         super.onPause()
-        // Save ToDoItems
         saveItems()
     }
 
-    // Load stored ToDoItems
+    //Loads stored transactions and amounts
     private fun loadItems() {
         var reader: BufferedReader? = null
         try {
             val fis = openFileInput(FILE_NAME)
             reader = BufferedReader(InputStreamReader(fis))
-
             var transaction: String? = null
             var amount: String? = null
 
             do {
                 transaction = reader.readLine();
+                //If transaction is null, then amount should and will be null, hence we stop
                 if (transaction == null)
                     break
                 amount = reader.readLine()
-                //Adjust this
+                //Readd to list and update it
                 list.add(Transaction(transaction, amount))
                 mAdapter.notifyDataSetChanged()
             } while (true)
@@ -146,21 +145,19 @@ class MainScreen : AppCompatActivity() {
         }
     }
 
-    // Save ToDoItems to file
+    // Save transactions and amount in a file
     private fun saveItems() {
         var writer: PrintWriter? = null
         try {
             val fos = openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
-            writer = PrintWriter(
-                BufferedWriter(
-                    OutputStreamWriter(
-                        fos
-                    )
-                )
-            )
+            writer = PrintWriter(BufferedWriter(OutputStreamWriter(fos)))
+
             for (idx in 0 until mAdapter.count) {
-                writer.println(mAdapter.getItem(idx))
+                var transactionInfo = mAdapter.getItem(idx) as Transaction
+                writer.println(transactionInfo.transaction)
+                writer.println(transactionInfo.amount)
             }
+
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
@@ -168,7 +165,7 @@ class MainScreen : AppCompatActivity() {
         }
     }
 
-//    fun dump() {
+//    fun ResetTransactionHistory() {
 //        for (i in 0 until mAdapter.count) {
 //            val data = (mAdapter.getItem(i) as ToDoItem).toLog()
 //            Log.i(
