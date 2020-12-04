@@ -3,12 +3,12 @@ package com.example.expensetracker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
-import androidx.annotation.TransitionRes
 import androidx.appcompat.app.AppCompatActivity
 import java.io.*
 import java.text.ParseException
@@ -24,9 +24,10 @@ import java.text.ParseException
 // latest transactions only, not the full history
 var list = arrayListOf<Transaction>()
 lateinit var mAdapter: BaseAdapter
-var count = 0
+private var transactionEntered: String? = null
+private var amountEntered: String? = null
 
-class MainScreen : AppCompatActivity() {
+class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
@@ -40,6 +41,7 @@ class MainScreen : AppCompatActivity() {
         mListView.isEnabled = false
         mAdapter = HistoryListAdapter(this, list)
         mListView.adapter = mAdapter
+
     }
 
     //Menu
@@ -74,9 +76,15 @@ class MainScreen : AppCompatActivity() {
     }
 
     private fun addTransaction() {
-        openDialog()
-        count++
-        list.add(Transaction("Food", "100"))
+        val popUpDialog = TransactionDialog()
+        popUpDialog.show(supportFragmentManager, "Dialog")
+    }
+
+    override fun applyTexts(transaction: String?, amount: String?) {
+        transactionEntered = transaction.toString()
+        amountEntered = amount.toString()
+        Log.i("TAG", "Transaction: ${transaction.toString()} and  amount: ${amount.toString()}")
+        list.add(Transaction(transactionEntered.toString(), amountEntered.toString()))
         mAdapter.notifyDataSetChanged()
     }
 
@@ -85,21 +93,15 @@ class MainScreen : AppCompatActivity() {
         finish()
     }
 
-    private fun openDialog() {
-        var dialog = TransactionDialog()
-        dialog.show(supportFragmentManager, "CustomDialog")
-    }
-
     companion object {
-        val Amount = "amount"
-        val TAG = "Project"
-        private val FILE_NAME = "ExpenseTrackerData.txt"
+        const val Amount = "amount"
+        private const val FILE_NAME = "ExpenseTrackerData.txt"
     }
 
     override fun onResume() {
         super.onResume()
-        if (mAdapter.count == 0)
-            loadItems()
+//        if (mAdapter.count == 0)
+//            loadItems()
     }
 
     override fun onPause() {
@@ -164,18 +166,6 @@ class MainScreen : AppCompatActivity() {
             writer?.close()
         }
     }
-
-//    fun ResetTransactionHistory() {
-//        for (i in 0 until mAdapter.count) {
-//            val data = (mAdapter.getItem(i) as ToDoItem).toLog()
-//            Log.i(
-//                TAG,
-//                "Item " + i + ": " + data.replace(ToDoItem.ITEM_SEP, ",")
-//            )
-//        }
-//    }
-
-
 
 }
 
