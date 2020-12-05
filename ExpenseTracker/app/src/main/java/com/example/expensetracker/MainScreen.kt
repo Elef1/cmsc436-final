@@ -44,8 +44,8 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         mListView.adapter = mAdapter
 
         // bottom navigation
-        val bottom_nav_pane = findViewById<BottomNavigationView>(R.id.nav_menu)
-        bottom_nav_pane.setOnNavigationItemSelectedListener {
+        val bottomNavPane = findViewById<BottomNavigationView>(R.id.nav_menu)
+        bottomNavPane.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.history -> {
                     transactionHistory()
