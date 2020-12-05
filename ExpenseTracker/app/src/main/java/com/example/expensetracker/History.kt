@@ -14,11 +14,13 @@ class History : AppCompatActivity() {
         setContentView(R.layout.activity_history)
 
         var mListView = findViewById<ListView>(R.id.listView)
-        var lists = intent.getSerializableExtra("list_of_transactions")
-//        var lists = intent.getParcelableArrayListExtra("key");
 
-        if(lists != null) {
-           var mAdapter = HistoryListAdapter(this, lists as ArrayList<Transaction>)
+        val mIntent = intent
+        val mArgs = mIntent.getBundleExtra("BUNDLE")
+        val obj = mArgs!!.getSerializable("LIST") as ArrayList<Transaction>
+
+        if(obj != null) {
+            var mAdapter = HistoryListAdapter(this, obj)
             mListView.adapter = mAdapter
         }
 

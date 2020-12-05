@@ -115,8 +115,9 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
     //For some reason it doesn't work here. Not sure why, might relate to the list
     private fun transactionHistory() {
         val intent = Intent(this, History::class.java)
-        intent.putExtra("list_of_transactions", list)
-//        intent.putParcelableArrayListExtra("key", ArrayList<Transaction extends Parcelable> list)
+        val args = Bundle()
+        args.putSerializable("LIST", list)
+        intent.putExtra("BUNDLE", args)
         startActivity(intent)
     }
 

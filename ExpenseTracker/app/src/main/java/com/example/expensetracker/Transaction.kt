@@ -1,3 +1,5 @@
 package com.example.expensetracker
 
-class Transaction  (var transaction: String, var amount: String)
+import java.io.Serializable
+
+class Transaction (var transaction: String, var amount: String) : Serializable
