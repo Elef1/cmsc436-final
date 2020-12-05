@@ -11,6 +11,7 @@ import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.*
 import java.text.ParseException
 
@@ -46,6 +47,25 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         mAdapter = HistoryListAdapter(this, list)
         mListView.adapter = mAdapter
 
+        // bottom navigation
+        val bottom_nav_pane = findViewById<BottomNavigationView>(R.id.nav_menu)
+        bottom_nav_pane.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.history -> {
+                    transactionHistory()
+                    true
+                }
+                R.id.add -> {
+                    addTransaction()
+                    true
+                }
+                R.id.reset -> {
+                    resetBudget()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     //Menu
