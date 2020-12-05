@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        val Amount = "amount"
+        val Amount = "Amount"
+        val totalAmount = "totalAmount"
     }
 
 }

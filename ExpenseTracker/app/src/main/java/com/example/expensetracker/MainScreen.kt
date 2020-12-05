@@ -31,15 +31,34 @@ lateinit var mAdapter: BaseAdapter
 private var transactionEntered: String? = null
 private var amountEntered: String? = null
 lateinit var budget: TextView
+lateinit var totalBudget: TextView
+
 
 class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
+        totalBudget = findViewById(R.id.totalBudgt)
+        var currentBudget = intent.getStringExtra("Amount").toString()//can be used as total budget
+        Log.i("TAG", "Currentbudget: $currentBudget")
 
+        //If we enter we, we have updated current budget, hence update the previous budget and
+        //clear the adapter.
+        if(currentBudget != sharedpreferences.getString("totalAmount", "").toString()) {
+            val editor = sharedpreferences.edit()
+            editor.putString("totalAmount", currentBudget)
+            editor.apply()
+            Log.i("TAG", "Currentbudget: $currentBudget")
+            Log.i("TAG", "sharedpref: ${sharedpreferences.getString("totalAmount", "").toString()}")
+            list.clear()
+            deleteHistory()
+
+            }
+
+        totalBudget.text = "Total budget: $currentBudget"
         //Gets budget from previous activity stored in the intent
         budget = findViewById<TextView>(R.id.yourBdgt)
-        budget.text = intent.getStringExtra(Amount).toString()
+        budget.text = intent.getStringExtra("Amount").toString()
         var mListView = findViewById<ListView>(R.id.listView)
 
         //Stops scrolling on the main screen to only see the most recent ones that were added
@@ -108,7 +127,10 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
 
     override fun applyTexts(transaction: String?, amount: String?) {
         var bud = Integer.parseInt(budget.text.toString())
-        var subtract = Integer.parseInt(amount.toString())
+
+        var amount1 = amount?.replace("\\s".toRegex(), "")
+
+        var subtract = Integer.parseInt(amount1.toString())
 
         if(bud - subtract < 0) {
             openDialog2()
@@ -152,13 +174,13 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
 
     override fun onResume() {
         super.onResume()
-//        if (mAdapter.count == 0)
-//            loadItems()
+        if (mAdapter.count == 0)
+            loadItems()
     }
 
     override fun onPause() {
         super.onPause()
-//        saveItems()
+        saveItems()
     }
 
     //Loads stored transactions and amounts
@@ -211,6 +233,22 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
                 writer.println(transactionInfo.transaction)
                 writer.println(transactionInfo.amount)
             }
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            writer?.close()
+        }
+    }
+
+
+    private fun deleteHistory() {
+        var writer: PrintWriter? = null
+        try {
+            val fos = openFileOutput(FILE_NAME, Context.MODE_PRIVATE)
+            writer = PrintWriter(BufferedWriter(OutputStreamWriter(fos)))
+            writer.print("")
+            writer.close()
 
         } catch (e: IOException) {
             e.printStackTrace()
