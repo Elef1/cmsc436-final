@@ -31,13 +31,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             Log.i("TAG", "Testing1")
         } else {
-            setContentView(R.layout.activity_main)
-            //Get reference to btn and txt on activity_main screen
-            enterYourBudgetTxt = findViewById(R.id.enterBudget)
-            confirmBtn = findViewById(R.id.btnSave)
+
             Log.i("TAG", "Testing2")
 
         }
+
+        setContentView(R.layout.activity_main)
+        //Get reference to btn and txt on activity_main screen
+        enterYourBudgetTxt = findViewById(R.id.enterBudget)
+        confirmBtn = findViewById(R.id.btnSave)
+
         Log.i("TAG", "Testing3")
 
 

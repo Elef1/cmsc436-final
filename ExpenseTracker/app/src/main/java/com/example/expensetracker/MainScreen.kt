@@ -3,7 +3,6 @@ package com.example.expensetracker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -31,6 +30,7 @@ var list = ArrayList<Transaction>()
 lateinit var mAdapter: BaseAdapter
 private var transactionEntered: String? = null
 private var amountEntered: String? = null
+lateinit var budget: TextView
 
 class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         setContentView(R.layout.activity_main_screen)
 
         //Gets budget from previous activity stored in the intent
-        val budget = findViewById<TextView>(R.id.yourBdgt)
+        budget = findViewById<TextView>(R.id.yourBdgt)
         budget.text = intent.getStringExtra(Amount).toString()
         var mListView = findViewById<ListView>(R.id.listView)
 
@@ -107,11 +107,36 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
     }
 
     override fun applyTexts(transaction: String?, amount: String?) {
+        var bud = Integer.parseInt(budget.text.toString())
+        var subtract = Integer.parseInt(amount.toString())
+
+        if(bud - subtract < 0) {
+            openDialog2()
+            Log.i("TAG", "Returned?")
+            return
+        }
+
+        //warning: youre below or equal 25% of your budget
+        if ((bud - subtract) <= bud/4)
+            openDialog()
+
+        Log.i("TAG", "Returned?123")
+
+        //subtract the transaction
+        bud -= subtract
+        budget.text = bud.toString()
+
+
         transactionEntered = transaction.toString()
         amountEntered = amount.toString()
         Log.i("TAG", "Transaction: ${transaction.toString()} and  amount: ${amount.toString()}")
 //        list.add(Transaction(transactionEntered.toString(), amountEntered.toString()))
-        list.add(Transaction("Transaction: ${transactionEntered.toString()}", "$ ${amountEntered.toString()}"))
+        list.add(
+            Transaction(
+                "Transaction: ${transactionEntered.toString()}",
+                "$ ${amountEntered.toString()}"
+            )
+        )
         mAdapter.notifyDataSetChanged()
     }
 
@@ -192,6 +217,18 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         } finally {
             writer?.close()
         }
+    }
+
+    //Warning Popup
+    fun openDialog() {
+        var dialog = WarningPopup()
+        dialog.show(supportFragmentManager, "CustomDialog")
+    }
+
+    //Below budget Popup
+    fun openDialog2() {
+        var dialog = BelowBudgetPopup()
+        dialog.show(supportFragmentManager, "CustomDialog")
     }
 
 }
