@@ -3,6 +3,7 @@ package com.example.expensetracker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -22,7 +23,10 @@ import java.text.ParseException
 
 // This is the main screen after the "MainActivity" screen. Here we see the budget and
 // latest transactions only, not the full history
-var list = arrayListOf<Transaction>()
+
+//var list = arrayListOf<Transaction>()
+var list = ArrayList<Transaction>()
+
 lateinit var mAdapter: BaseAdapter
 private var transactionEntered: String? = null
 private var amountEntered: String? = null
@@ -69,9 +73,11 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         }
     }
 
+    //For some reason it doesn't work here. Not sure why, might relate to the list
     private fun transactionHistory() {
         val intent = Intent(this, History::class.java)
         intent.putExtra("list_of_transactions", list)
+//        intent.putParcelableArrayListExtra("key", ArrayList<Transaction extends Parcelable> list)
         startActivity(intent)
     }
 
@@ -84,7 +90,8 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         transactionEntered = transaction.toString()
         amountEntered = amount.toString()
         Log.i("TAG", "Transaction: ${transaction.toString()} and  amount: ${amount.toString()}")
-        list.add(Transaction(transactionEntered.toString(), amountEntered.toString()))
+//        list.add(Transaction(transactionEntered.toString(), amountEntered.toString()))
+        list.add(Transaction("Transaction: ${transactionEntered.toString()}", "$ ${amountEntered.toString()}"))
         mAdapter.notifyDataSetChanged()
     }
 
@@ -106,7 +113,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
 
     override fun onPause() {
         super.onPause()
-        saveItems()
+//        saveItems()
     }
 
     //Loads stored transactions and amounts

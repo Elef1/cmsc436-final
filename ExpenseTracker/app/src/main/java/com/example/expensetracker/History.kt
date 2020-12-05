@@ -12,6 +12,7 @@ class History : AppCompatActivity() {
 
         var mListView = findViewById<ListView>(R.id.listView)
         var lists = intent.getSerializableExtra("list_of_transactions")
+//        var lists = intent.getParcelableArrayListExtra("key");
 
         if(lists != null) {
            var mAdapter = HistoryListAdapter(this, lists as ArrayList<Transaction>)
