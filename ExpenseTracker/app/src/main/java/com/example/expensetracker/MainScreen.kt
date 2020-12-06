@@ -6,64 +6,64 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.*
 import java.text.ParseException
 
-// Add a search option to categorize things purchased(optional)
-// progress bar for the budget as it goes so it doesn't look empty(at the end)
-// A lot of bugs, especially when saving/loading old info. I was adjusting that and the dialog,
-// but I stopped there for now. Just a skeleton to get us started before the thanksgiving break.
-// Save the values placed in the dialog and save into the list(not done yet, stopped midway)
-// Code for save/load I got from Lab4.
+// This is the app's main screen. It shows the user their total budget, remaining budget, and
+// a history of their most recent transactions (not full history).
+// Here the user can enter new transactions, check their full history, and reset their budget.
 
-// This is the main screen after the "MainActivity" screen. Here we see the budget and
-// latest transactions only, not the full history
-
-//var list = arrayListOf<Transaction>()
-var list = ArrayList<Transaction>()
-
-lateinit var mAdapter: BaseAdapter
-private var transactionEntered: String? = null
-private var amountEntered: String? = null
-lateinit var budget: TextView
-lateinit var totalBudget: TextView
-
+val list = ArrayList<Transaction>()
 
 class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener {
+
+    private lateinit var mAdapter: BaseAdapter
+    private lateinit var budget: TextView
+
+    companion object {
+        private const val AMOUNT = "amount"
+        private const val BUDGET = "budget"
+        private const val FILE_NAME = "ExpenseTrackerData.txt"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
-        totalBudget = findViewById(R.id.totalBudgt)
-        var currentBudget = intent.getStringExtra("Amount").toString()//can be used as total budget
-        Log.i("TAG", "Currentbudget: $currentBudget")
 
-        //If we enter we, we have updated current budget, hence update the previous budget and
-        //clear the adapter.
-        if(currentBudget != sharedpreferences.getString("totalAmount", "").toString()) {
+        sharedpreferences = getPreferences(Context.MODE_PRIVATE)
+        budget = findViewById(R.id.yourBdgt)
+
+        val totalBudget: TextView = findViewById(R.id.totalBudgt)
+        val mListView = findViewById<ListView>(R.id.listView)
+        val currentBudget = intent.getStringExtra(AMOUNT).toString()
+
+        // If the total budget has changed, update the budget and clear Transaction history.
+        if (currentBudget != sharedpreferences.getString(BUDGET, "").toString()) {
             val editor = sharedpreferences.edit()
-            editor.putString("totalAmount", currentBudget)
+            editor.putString(BUDGET, currentBudget)
             editor.apply()
-            Log.i("TAG", "Currentbudget: $currentBudget")
-            Log.i("TAG", "sharedpref: ${sharedpreferences.getString("totalAmount", "").toString()}")
             list.clear()
             deleteHistory()
         }
 
-        totalBudget.text = "Total budget: $currentBudget"
-        //Gets budget from previous activity stored in the intent
-        budget = findViewById<TextView>(R.id.yourBdgt)
-        budget.text = intent.getStringExtra("Amount").toString()
-        var mListView = findViewById<ListView>(R.id.listView)
+        val totalBudgetStr = "Total Budget: $$currentBudget"
+        totalBudget.text = totalBudgetStr
+        budget.text = currentBudget
 
-        //Stops scrolling on the main screen to only see the most recent ones that were added
+        // Stops scrolling on the home screen to only see the most recent Transactions
+        // that were added.
         mListView.isEnabled = false
         mAdapter = HistoryListAdapter(this, list)
         mListView.adapter = mAdapter
+
+        //transactionButton
+        val transButton = findViewById<ImageButton>(R.id.addTrans)
+        transButton.setOnClickListener {
+            addTransaction()
+        }
 
         // bottom navigation
         val bottomNavPane = findViewById<BottomNavigationView>(R.id.nav_menu)
@@ -74,7 +74,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
                     true
                 }
                 R.id.add -> {
-                    addTransaction()
+                    //addTransaction()
                     true
                 }
                 R.id.reset -> {
@@ -111,7 +111,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         }
     }
 
-    //For some reason it doesn't work here. Not sure why, might relate to the list
+
     private fun transactionHistory() {
         val intent = Intent(this, History::class.java)
         val args = Bundle()
@@ -148,31 +148,18 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         bud -= subtract
         budget.text = bud.toString()
 
-
-        transactionEntered = transaction.toString()
-        amountEntered = amount.toString()
-        Log.i("TAG", "Transaction: ${transaction.toString()} and  amount: ${amount.toString()}")
-//        list.add(Transaction(transactionEntered.toString(), amountEntered.toString()))
-        list.add(
-            Transaction(
-                "Transaction: ${transactionEntered.toString()}",
-                "$ ${amountEntered.toString()}"
-            )
-        )
+        val transactionEntered: String = transaction.toString()
+        val amountEntered: String = amount.toString()
+        list.add(Transaction(transactionEntered, "$${amountEntered}"))
         mAdapter.notifyDataSetChanged()
     }
 
-    //Change later, skeleton for now
+
     private fun resetBudget() {
         val editor = sharedpreferences.edit()
-        editor.putString("totalAmount", "")
+        editor.putString(BUDGET, "")
         editor.apply()
         finish()
-    }
-
-    companion object {
-        const val Amount = "amount"
-        private const val FILE_NAME = "ExpenseTrackerData.txt"
     }
 
     override fun onResume() {
@@ -185,6 +172,8 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         super.onPause()
         saveItems()
     }
+
+    // Code for save/load from Lab 4.
 
     //Loads stored transactions and amounts
     private fun loadItems() {
