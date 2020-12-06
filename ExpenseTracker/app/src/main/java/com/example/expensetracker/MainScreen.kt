@@ -52,8 +52,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
             Log.i("TAG", "sharedpref: ${sharedpreferences.getString("totalAmount", "").toString()}")
             list.clear()
             deleteHistory()
-
-            }
+        }
 
         totalBudget.text = "Total budget: $currentBudget"
         //Gets budget from previous activity stored in the intent
@@ -165,6 +164,9 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
 
     //Change later, skeleton for now
     private fun resetBudget() {
+        val editor = sharedpreferences.edit()
+        editor.putString("totalAmount", "")
+        editor.apply()
         finish()
     }
 
