@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.*
@@ -65,6 +63,12 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         mAdapter = HistoryListAdapter(this, list)
         mListView.adapter = mAdapter
 
+        //transactionButton
+        val transButton = findViewById<ImageButton>(R.id.addTrans)
+        transButton.setOnClickListener {
+            addTransaction()
+        }
+
         // bottom navigation
         val bottomNavPane = findViewById<BottomNavigationView>(R.id.nav_menu)
         bottomNavPane.setOnNavigationItemSelectedListener {
@@ -74,7 +78,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
                     true
                 }
                 R.id.add -> {
-                    addTransaction()
+                    //addTransaction()
                     true
                 }
                 R.id.reset -> {

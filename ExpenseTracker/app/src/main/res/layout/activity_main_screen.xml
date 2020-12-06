@@ -4,37 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBlue"
     tools:context=".MainScreen">
 
     <TextView
+        android:layout_width="322dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Transactions"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/totalBudgt"
+        android:layout_width="263dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/borderlist"
+        android:text="Total Monthly Budget"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/yourBdgt"
-        android:layout_width="137dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="38dp"
-        android:text="Your Budget"
+        android:layout_width="262dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="140dp"
+        android:gravity="center"
+        android:background="@drawable/borderlist"
+        android:text="Your Current Amount"
+        android:textColor="@color/colorBlack"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalBudgt" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/recentHistory"
-        android:layout_width="147dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="41dp"
+        android:layout_width="305dp"
+        android:layout_height="50dp"
+        android:background="@drawable/recentborder"
+        android:gravity="center"
         android:text="Recent History"
+        android:textColor="@color/colorBlack"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.169"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/addTrans"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/recentborder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/recentHistory"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/addition" />
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="268dp"
+        android:layout_width="375dp"
         android:layout_height="351dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/borderlist"
+        android:textColor="@color/colorGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -44,20 +92,15 @@
         android:id="@+id/nav_menu"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/colorBlack"
+        app:itemTextColor="@color/colorGreen"
+        app:itemRippleColor="@color/colorGreen"
+        app:itemIconTint="@color/colorGreen"
         app:menu="@menu/menu_settings"
         app:layout_constraintStart_toEndOf="@+id/listView"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <TextView
-        android:id="@+id/totalBudgt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@
 
     <item android:id="@+id/add"
         android:enabled="true"
-        android:icon="@drawable/add_transaction_pic"
+        android:icon="@drawable/homeicon"
         android:title="Add a transaction" />
 
     <item android:id="@+id/reset"
