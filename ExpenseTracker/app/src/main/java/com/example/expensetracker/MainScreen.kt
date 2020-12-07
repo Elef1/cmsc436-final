@@ -51,13 +51,22 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
 
         val totalBudgetStr = "Total Budget: $$currentBudget"
         totalBudget.text = totalBudgetStr
-        budget.text = currentBudget
+        budget.text = "$$currentBudget"
 
         // Stops scrolling on the home screen to only see the most recent Transactions
         // that were added.
-        mListView.isEnabled = false
+        //mListView.isEnabled = false
         mAdapter = HistoryListAdapter(this, list)
         mListView.adapter = mAdapter
+
+        mListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val amountStoredCurrentItem: String = list[position].amount.drop(1)
+            val budgetText: Int = budget.text.toString().drop(1).toInt()
+            val newBudget: Int = budgetText + amountStoredCurrentItem.toInt()
+            budget.text = "$$newBudget"
+            list.removeAt(position)
+            mAdapter.notifyDataSetChanged()
+        }
 
         //transactionButton
         val transButton = findViewById<ImageButton>(R.id.addTrans)
@@ -126,7 +135,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
     }
 
     override fun applyTexts(transaction: String?, amount: String?) {
-        var bud = Integer.parseInt(budget.text.toString())
+        var bud = budget.text.toString().drop(1).toInt()
 
         var amount1 = amount?.replace("\\s".toRegex(), "")
 
@@ -146,7 +155,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
 
         //subtract the transaction
         bud -= subtract
-        budget.text = bud.toString()
+        budget.text = "$$bud"
 
         val transactionEntered: String = transaction.toString()
         val amountEntered: String = amount.toString()
