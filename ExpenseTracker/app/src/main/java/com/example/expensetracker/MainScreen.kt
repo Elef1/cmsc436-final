@@ -135,6 +135,24 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
     }
 
     override fun applyTexts(transaction: String?, amount: String?) {
+
+        //validate that this is a number, if not put toast message
+        val reg = Regex("^\\d+(\\.\\d+)?$")
+
+        if (amount.isNullOrEmpty() || !reg.matches(amount)) {
+
+            addTransaction()
+            Toast.makeText(
+                applicationContext,
+                "Please enter a number under Amount",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+
+
+
+
         var bud = budget.text.toString().drop(1).toInt()
 
         var amount1 = amount?.replace("\\s".toRegex(), "")

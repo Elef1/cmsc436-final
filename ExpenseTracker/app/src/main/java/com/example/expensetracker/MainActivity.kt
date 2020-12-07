@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 // This is the activity that opens when no budget has been entered in the app yet.
 // It is the first screen a new user sees.
@@ -42,12 +43,27 @@ class MainActivity : AppCompatActivity() {
         confirmBtn.setOnClickListener {
             val editor = sharedpreferences.edit()
             val amount = enterYourBudgetTxt.text.toString()
-            editor.putString(AMOUNT, amount)
-            editor.apply()
 
-            val intent = Intent(this, MainScreen::class.java)
-            intent.putExtra(AMOUNT, amount)
-            startActivity(intent)
+            //validate that this is a number, if not put toast message
+            val reg = Regex("^\\d+(\\.\\d+)?$")
+
+            if (amount.isNullOrEmpty() || !reg.matches(amount)) {
+                Toast.makeText(
+                    applicationContext,
+                    "Please enter a number to continue",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+
+
+
+                editor.putString(AMOUNT, amount)
+                editor.apply()
+
+                val intent = Intent(this, MainScreen::class.java)
+                intent.putExtra(AMOUNT, amount)
+                startActivity(intent)
+            }
         }
     }
 }
