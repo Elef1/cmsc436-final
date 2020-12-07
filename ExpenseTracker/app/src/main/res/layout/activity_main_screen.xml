@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlue"
+    android:background="#78643C"
     tools:context=".MainScreen">
 
     <TextView
@@ -12,8 +12,11 @@
         android:layout_height="58dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/recentborder"
         android:text="Add Transactions"
-        android:textSize="40sp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,9 +26,10 @@
         android:layout_width="263dp"
         android:layout_height="36dp"
         android:layout_marginTop="88dp"
-        android:background="@drawable/borderlist"
-        android:text="Total Monthly Budget"
+        android:background="@drawable/recentborder"
         android:gravity="center"
+        android:text="Total Monthly Budget"
+        android:textAlignment="center"
         android:textColor="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
@@ -37,9 +41,10 @@
         android:layout_width="262dp"
         android:layout_height="42dp"
         android:layout_marginTop="140dp"
+        android:background="@drawable/recentborder"
         android:gravity="center"
-        android:background="@drawable/borderlist"
         android:text="Your Current Amount"
+        android:textAlignment="center"
         android:textColor="@color/colorBlack"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +60,7 @@
         android:background="@drawable/recentborder"
         android:gravity="center"
         android:text="Recent History"
+        android:textAlignment="center"
         android:textColor="@color/colorBlack"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/listView"
@@ -68,11 +74,11 @@
         android:layout_height="50dp"
         android:layout_marginTop="200dp"
         android:background="@drawable/recentborder"
+        android:src="@drawable/addition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/recentHistory"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/addition" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/listView"
@@ -81,7 +87,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="60dp"
-        android:background="@drawable/borderlist"
+        android:background="@drawable/recentborder"
         android:textColor="@color/colorGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,14 +99,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:itemBackground="@color/colorBlack"
-        app:itemTextColor="@color/colorGreen"
+        app:itemIconTint="#7CB342"
         app:itemRippleColor="@color/colorGreen"
-        app:itemIconTint="@color/colorGreen"
-        app:menu="@menu/menu_settings"
-        app:layout_constraintStart_toEndOf="@+id/listView"
+        app:itemTextColor="#7CB342"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
-
+        app:layout_constraintStart_toEndOf="@+id/listView"
+        app:menu="@menu/menu_settings" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

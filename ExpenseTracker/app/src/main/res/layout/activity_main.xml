@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreen"
+    android:background="#7CB342"
     tools:context=".MainActivity">
 
 
@@ -28,6 +28,8 @@
         android:layout_marginTop="324dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Welcome!"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +40,9 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="400dp"
         android:gravity="center"
-        android:text="This app will help you keep track of your monthly transactions. Lets start off by entering your monthly budget."
+        android:text="This app will help you keep track of your monthly transactions. Let's start off by entering your monthly budget."
+        android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,11 +54,13 @@
         android:layout_marginTop="540dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
-        android:hint="Enter here..."
+        android:hint="Enter budget here..."
         android:inputType="textPersonName"
         android:textColor="@color/cardview_light_background"
-        android:textColorHighlight="@color/cardview_light_background"
+        android:textColorHighlight="#FFFFFF"
         android:textColorHint="@color/cardview_light_background"
+        android:textColorLink="#000000"
+        android:textCursorDrawable="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,6 +71,8 @@
         android:layout_marginStart="160dp"
         android:layout_marginTop="600dp"
         android:text="Confirm"
+        android:textAlignment="center"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterBudget"
         app:layout_constraintTop_toTopOf="parent" />

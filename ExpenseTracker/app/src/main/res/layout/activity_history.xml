@@ -20,8 +20,8 @@
         android:id="@+id/nav_menu"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:itemBackground="@color/colorPrimary"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_settings"
-        />
+        android:visibility="visible"
+        app:itemBackground="@color/colorBlack"
+        app:menu="@menu/menu_settings" />
 </RelativeLayout>
