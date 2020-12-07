@@ -29,11 +29,11 @@ class History : AppCompatActivity() {
         bottomNavPane.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.history -> {
-                    transactionHistory()
+                    //transactionHistory()
                     true
                 }
                 R.id.add -> {
-                    addTransaction()
+                    goHome()
                     true
                 }
                 R.id.reset -> {
@@ -53,6 +53,13 @@ class History : AppCompatActivity() {
         startActivity(intent)
     }
 
+
+    private fun goHome() {
+        val intent = Intent(this, MainScreen::class.java)
+        intent.putExtra("list_of_transactions", list)
+        startActivity(intent)
+    }
+
     private fun addTransaction() {
         val popUpDialog = TransactionDialog()
         popUpDialog.show(supportFragmentManager, "Dialog")
@@ -60,6 +67,9 @@ class History : AppCompatActivity() {
 
     //Change later, skeleton for now
     private fun resetBudget() {
+        val editor = sharedpreferences.edit()
+        editor.putString("budget", "")
+        editor.apply()
         finish()
     }
 

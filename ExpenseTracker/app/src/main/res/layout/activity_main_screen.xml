@@ -104,7 +104,7 @@
         app:itemTextColor="#7CB342"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/listView"
-        app:menu="@menu/menu_settings" />
+        app:menu="@menu/navbarmenu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

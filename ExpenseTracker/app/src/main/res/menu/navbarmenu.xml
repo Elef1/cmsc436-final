@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/history"
+        android:icon="@drawable/history_pic"
+        android:enabled="true"
+        android:title="History" />
+
+    <item android:id="@+id/add"
+        android:enabled="true"
+        android:icon="@drawable/homeicon"
+        android:title="Home" />
+
+    <item android:id="@+id/reset"
+        android:enabled="true"
+        android:icon="@drawable/reset_budget_pic"
+        android:title="Reset your budget" />
+
+</menu>
