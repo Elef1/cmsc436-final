@@ -3,7 +3,9 @@ package com.example.expensetracker
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.widget.AdapterView
 import android.widget.ListView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -13,16 +15,14 @@ class History : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        var mListView = findViewById<ListView>(R.id.listView)
+        val mListView = findViewById<ListView>(R.id.listView)
 
         val mIntent = intent
         val mArgs = mIntent.getBundleExtra("BUNDLE")
         val obj = mArgs!!.getSerializable("LIST") as ArrayList<Transaction>
 
-        if(obj != null) {
-            var mAdapter = HistoryListAdapter(this, obj)
-            mListView.adapter = mAdapter
-        }
+        val mAdapter = HistoryListAdapter(this, obj)
+        mListView.adapter = mAdapter
 
         // bottom navigation
         val bottomNavPane = findViewById<BottomNavigationView>(R.id.nav_menu)

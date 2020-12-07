@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7CB342"
+    android:background="#BE7CB342"
     tools:context=".MainActivity">
 
 
     <ImageView
         android:id="@+id/iconID"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="60dp"
         android:background="@mipmap/ic_launcher"
         android:padding="40dp"

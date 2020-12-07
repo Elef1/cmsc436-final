@@ -150,7 +150,9 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
 
         val transactionEntered: String = transaction.toString()
         val amountEntered: String = amount.toString()
+        list.reverse()
         list.add(Transaction(transactionEntered, "$${amountEntered}"))
+        list.reverse()
         mAdapter.notifyDataSetChanged()
     }
 
