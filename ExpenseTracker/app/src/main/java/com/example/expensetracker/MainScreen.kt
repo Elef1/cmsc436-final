@@ -21,6 +21,7 @@ val list = ArrayList<Transaction>()
 class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener {
 
     private lateinit var mAdapter: BaseAdapter
+    private lateinit var totalBudget: TextView
     private lateinit var budget: TextView
 
     companion object {
@@ -34,9 +35,9 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         setContentView(R.layout.activity_main_screen)
 
         sharedpreferences = getPreferences(Context.MODE_PRIVATE)
+        totalBudget = findViewById(R.id.totalBudgt)
         budget = findViewById(R.id.yourBdgt)
 
-        val totalBudget: TextView = findViewById(R.id.totalBudgt)
         val mListView = findViewById<ListView>(R.id.listView)
         val currentBudget = intent.getStringExtra(AMOUNT).toString()
 
@@ -120,7 +121,6 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         }
     }
 
-
     private fun transactionHistory() {
         val intent = Intent(this, History::class.java)
         val args = Bundle()
@@ -144,20 +144,17 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
             addTransaction()
             Toast.makeText(
                 applicationContext,
-                "Please enter a number under Amount",
+                "Please enter a number in Amount!",
                 Toast.LENGTH_LONG
             ).show()
             return
         }
 
-
-
-
         var bud = budget.text.toString().drop(1).toInt()
 
         var amount1 = amount?.replace("\\s".toRegex(), "")
 
-        var subtract = Integer.parseInt(amount1.toString())
+        var subtract = Integer.parseInt(amount1)
 
         if(bud - subtract < 0) {
             openDialog2()
@@ -165,8 +162,10 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
             return
         }
 
-        //warning: youre below or equal 25% of your budget
-        if ((bud - subtract) <= bud/4)
+        val totalBud = totalBudget.text.toString().drop(15).toInt()
+
+        //warning: you're below or equal to 25% of your budget
+        if ((bud - subtract) <= totalBud/4 && (bud - subtract) != 0)
             openDialog()
 
         Log.i("TAG", "Returned?123")
@@ -182,7 +181,6 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
         list.reverse()
         mAdapter.notifyDataSetChanged()
     }
-
 
     private fun resetBudget() {
         val editor = sharedpreferences.edit()
@@ -219,7 +217,7 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
                 if (transaction == null)
                     break
                 amount = reader.readLine()
-                //Readd to list and update it
+                //Re-add to list and update it
                 list.add(Transaction(transaction, amount))
                 mAdapter.notifyDataSetChanged()
             } while (true)
@@ -261,7 +259,6 @@ class MainScreen : AppCompatActivity(), TransactionDialog.ExampleDialogListener 
             writer?.close()
         }
     }
-
 
     private fun deleteHistory() {
         var writer: PrintWriter? = null

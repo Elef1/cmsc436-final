@@ -44,22 +44,18 @@ class MainActivity : AppCompatActivity() {
             val editor = sharedpreferences.edit()
             val amount = enterYourBudgetTxt.text.toString()
 
-            //validate that this is a number, if not put toast message
+            // Validates that the user enters a number.
             val reg = Regex("^\\d+(\\.\\d+)?$")
 
             if (amount.isNullOrEmpty() || !reg.matches(amount)) {
                 Toast.makeText(
                     applicationContext,
-                    "Please enter a number to continue",
+                    "Please enter a number to continue!",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-
-
-
                 editor.putString(AMOUNT, amount)
                 editor.apply()
-
                 val intent = Intent(this, MainScreen::class.java)
                 intent.putExtra(AMOUNT, amount)
                 startActivity(intent)

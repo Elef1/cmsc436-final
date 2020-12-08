@@ -1,6 +1,5 @@
 package com.example.expensetracker
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,5 @@ class BelowBudgetPopup: DialogFragment() {
         var rootView: View = inflater.inflate(R.layout.below_budget_popup, container, false)
         return rootView
     }
-
 
 }

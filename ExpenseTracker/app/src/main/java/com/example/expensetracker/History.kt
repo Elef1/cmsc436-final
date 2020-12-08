@@ -1,11 +1,8 @@
 package com.example.expensetracker
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.widget.AdapterView
 import android.widget.ListView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -61,7 +58,5 @@ class History : AppCompatActivity() {
         inflater.inflate(R.menu.menu_settings, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
-
 
 }

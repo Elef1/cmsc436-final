@@ -6,5 +6,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorGreen">#90ee90</color>
     <color name="colorBlue">#a6e7ff</color>
-    <color name="kiwiBrown">#78643C</color>
+    <color name="kiwiBrown">#786932</color>
+    <color name="kiwiGreen">#9BBE78</color>
+    <color name="green">#7CB342</color>
 </resources>

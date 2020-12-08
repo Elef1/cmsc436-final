@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="199dp"
         android:layout_height="83dp"
-        android:text="Careful,  below 25% of budget."
+        android:text="Warning! You're below 25% of your total budget!"
         android:textSize="22sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"

@@ -39,5 +39,4 @@ class HistoryListAdapter(context: Context, listTransactions: ArrayList<Transacti
         //returns how each rows view will be
         return rowView
     }
-
 }

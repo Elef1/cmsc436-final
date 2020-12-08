@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7CB342"
+    android:background="@color/kiwiBrown"
     tools:context=".MainScreen">
 
     <TextView
@@ -13,9 +13,9 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/recentborder2"
+        android:gravity="center"
         android:text="Monthly Budget"
         android:textAlignment="center"
-        android:gravity="center"
         android:textColor="#000000"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"

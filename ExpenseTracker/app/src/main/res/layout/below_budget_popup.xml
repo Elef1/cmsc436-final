@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="203dp"
         android:layout_height="103dp"
-        android:text="Below the budget amount! Cannot complete transaction"
+        android:text="Over the budget amount! Cannot complete the transaction!"
         android:textSize="22sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
